@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edivalsilva.spring.model.Book;
 import com.edivalsilva.spring.repository.BookRepository;
 
+@CrossOrigin(" * ")
 @RestController
 public class BookController {
 
