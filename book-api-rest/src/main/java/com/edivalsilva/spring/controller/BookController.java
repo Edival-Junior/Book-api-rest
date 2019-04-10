@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class BookController {
 	}
 
 	@PostMapping("/api/book")
-	public ResponseEntity<?> save(@RequestBody Book book) {
+	public ResponseEntity<String> save(@RequestBody Book book) {
 		bookRepository.save(book);
 		List<Book> newBook = bookRepository.findByTitle(book.getTitle());
 
@@ -44,7 +45,7 @@ public class BookController {
 	public ResponseEntity<Optional<Book>> findById(@PathVariable("id") long id) {
 		Optional<Book> book = bookRepository.findById(id);
 
-		if (book == null) {
+		if (!book.isPresent()) {
 			return ResponseEntity.notFound().build();
 		} else {
 			return ResponseEntity.ok().body(book);
@@ -66,7 +67,7 @@ public class BookController {
 	}
 	
 	@DeleteMapping("/api/book/{id}")
-	public ResponseEntity<?> deleteBook(@PathVariable("id") long id) {
+	public ResponseEntity<String> deleteBook(@PathVariable("id") long id) {
 		bookRepository.deleteById(id);
 		return ResponseEntity.ok().body("Book Deleted");
 
