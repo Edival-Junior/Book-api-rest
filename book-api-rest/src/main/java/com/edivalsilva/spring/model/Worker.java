@@ -31,6 +31,9 @@ public class Worker {
 	@Column(nullable = false)
 	private String cpf;
 	
+	@Column(nullable = false)
+	private Double salary;
+	
 	
 	private String phonenumber;
 	
